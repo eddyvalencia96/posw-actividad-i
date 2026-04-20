@@ -1,0 +1,78 @@
+<section class="dashboard">
+  <header class="dashboard__header">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Panel de control para productos, categorias y usuarios.</p>
+    </div>
+    <a routerLink="/products" class="button-link">Ver productos</a>
+  </header>
+
+  <div *ngIf="loading()" class="state-card">Cargando metricas...</div>
+
+  <ng-container *ngIf="!loading()">
+    <section class="stats-grid">
+      <article class="stat-card">
+        <h2>{{ productCount() }}</h2>
+        <p>Productos</p>
+      </article>
+      <article class="stat-card">
+        <h2>{{ categoryCount() }}</h2>
+        <p>Categorias</p>
+      </article>
+      <article class="stat-card">
+        <h2>{{ userCount() }}</h2>
+        <p>Usuarios</p>
+      </article>
+    </section>
+
+    <section class="chart-card">
+      <h3>Grafico de metricas</h3>
+      <div class="chart-row">
+        <span>Productos</span>
+        <div class="chart-track">
+          <div class="chart-value chart-value--products" [style.width]="productsBarWidth()"></div>
+        </div>
+      </div>
+      <div class="chart-row">
+        <span>Usuarios</span>
+        <div class="chart-track">
+          <div class="chart-value chart-value--users" [style.width]="usersBarWidth()"></div>
+        </div>
+      </div>
+      <div class="chart-row">
+        <span>Categorias</span>
+        <div class="chart-track">
+          <div class="chart-value chart-value--categories" [style.width]="categoriesBarWidth()"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-lists">
+      <article class="list-card">
+        <h3>Top productos</h3>
+        <ul>
+          <li *ngFor="let product of products().slice(0, 5)">
+            <span>{{ product.title }}</span>
+            <strong>{{ product.price | currency }}</strong>
+          </li>
+        </ul>
+      </article>
+
+      <article class="list-card">
+        <h3>Categorias disponibles</h3>
+        <ul>
+          <li *ngFor="let category of categories()">{{ category }}</li>
+        </ul>
+      </article>
+
+      <article class="list-card">
+        <h3>Usuarios administradores</h3>
+        <ul>
+          <li *ngFor="let user of users()">
+            {{ user.name.firstname }} {{ user.name.lastname }}
+          </li>
+        </ul>
+      </article>
+    </section>
+  </ng-container>
+</section>
