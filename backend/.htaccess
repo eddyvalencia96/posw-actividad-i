@@ -1,0 +1,31 @@
+# Apache Rewrite Rules for REST API
+# Enable URL rewriting for cleaner endpoints
+
+RewriteEngine On
+
+# If the request is for an existing file, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# If the request is for an existing directory, serve it directly
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# API Routes (clean URLs)
+# /api/products -> /api/products.php
+RewriteRule ^api/products$ api/products.php [L,QSA]
+
+# /api/products/1 -> /api/products.php?id=1
+RewriteRule ^api/products/([0-9]+)$ api/products.php?id=$1 [L,QSA]
+
+# /api/users -> /api/users.php
+RewriteRule ^api/users$ api/users.php [L,QSA]
+
+# /api/users/1 -> /api/users.php?id=1
+RewriteRule ^api/users/([0-9]+)$ api/users.php?id=$1 [L,QSA]
+
+# /api/orders -> /api/orders.php
+RewriteRule ^api/orders$ api/orders.php [L,QSA]
+
+# /api/orders/1 -> /api/orders.php?id=1
+RewriteRule ^api/orders/([0-9]+)$ api/orders.php?id=$1 [L,QSA]

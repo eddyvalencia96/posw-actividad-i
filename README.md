@@ -52,9 +52,25 @@ ng e2e
 ```
 
 ## 📚 Key Architectural Notes
-*   **State Management:** The application utilizes [NgRx](https://ngrx.dev/) for centralized and predictable state management across complex features.
-*   **API Endpoints:** All communication with the backend is standardized through the `/api/v1/...` endpoint group.
-*   **Styling:** We follow **[SCSS Variables and Mixins]** to ensure global theme consistency across all modules.
+
+### State Management
+*   **Signals:** The application uses Angular Signals for local, fine-grained reactive state in each component (`signal<T>()`, `computed()`).
+*   **Signals vs NgRx:** This approach provides simpler, component-scoped state without the boilerplate of global state management.
+
+### Data Layer
+*   **FakeStore API:** Primary data source at `https://fakestoreapi.com`.
+*   **Fallback Mocks:** On HTTP errors, the service falls back to local mock data (`MOCK_PRODUCTS`, `MOCK_USERS`).
+*   **Interceptor:** `HttpErrorInterceptor` adds custom headers (`X-App-Client`) and handles error logging.
+
+### Evidence of Workshop Requirements
+
+| Requirement | Evidence |
+|-------------|----------|
+| Signals for state (`signal<Product[]>`, `signal<Product \| null>`) | `src/app/features/product-list/product-list.component.ts:17-20` `src/app/features/product-detail/product-detail.component.ts:20-23` |
+| Http service with typed responses (`http.get<Product[]>`) | `src/app/services/ecommerce-data.service.ts:20-27` |
+| FakeStore API + fallback mocks | `src/app/services/ecommerce-data.service.ts:11,22-25` |
+| HTTP Interceptor | `src/app/interceptors/http-error.interceptor.ts:5-24` |
+| Standalone components with Signals | All components in `src/app/features/` use standalone + signals |
 
 ## ⚙️ CLI Reference
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
