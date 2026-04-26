@@ -7,7 +7,8 @@ This administration panel serves as the central hub for managing core operations
 ### Prerequisites
 Before running this project, ensure you have the following installed:
 *   Node.js: Version 16.0.0 or higher
-*   Angular CLI: Must be installed globally (`ng add @angular/cli`)
+*   Angular CLI: Must be installed globally
+*   XAMPP: With Apache and MySQL running
 
 ### Installation
 To install dependencies, run:
@@ -17,62 +18,89 @@ npm install
 
 ## 🚀 Usage
 
-### 🌐 Development Server
-To start a local development server, run:
+### 🌐 Development Server + Backend
+1. Start XAMPP (Apache + MySQL)
+2. Import `backend/database.sql` in phpMyAdmin (`http://localhost/phpmyadmin`)
+3. Start the frontend:
 ```bash
+npm run dev
+# or
 ng serve
 ```
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+4. Open `http://localhost:4200/`
 
-### 🔬 Code Scaffolding
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-```bash
-ng generate component component-name
-```
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-```bash
-ng generate --help
-```
+### 🌐 Frontend Pages
+| Route | Description |
+|-------|-------------|
+| `/` | Dashboard (metrics) |
+| `/products` | Product list |
+| `/products/:id` | Product detail |
+| `/users` | User list |
+| `/orders` | Order list |
 
 ### 🏗️ Building
 To build the project for deployment, run:
 ```bash
 ng build
 ```
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-### 🧪 Testing
-Run unit tests using the Vitest test runner with:
-```bash
-ng test
-```
-For end-to-end (e2e) testing, run:
-```bash
-ng e2e
-```
+## 📚 Backend API Documentation
 
-## 📚 Key Architectural Notes
+### Database Schema
+The application uses MySQL with 3 tables:
+- **products**: Product catalog (id, title, description, price, category, image, stock)
+- **users**: Admin users (id, email, username, password, name_first, name_last, role, phone)
+- **orders**: Customer orders (id, user_id, product_id, quantity, total_price, status)
 
-### State Management
-*   **Signals:** The application uses Angular Signals for local, fine-grained reactive state in each component (`signal<T>()`, `computed()`).
-*   **Signals vs NgRx:** This approach provides simpler, component-scoped state without the boilerplate of global state management.
+### API Endpoints
 
-### Data Layer
-*   **FakeStore API:** Primary data source at `https://fakestoreapi.com`.
-*   **Fallback Mocks:** On HTTP errors, the service falls back to local mock data (`MOCK_PRODUCTS`, `MOCK_USERS`).
-*   **Interceptor:** `HttpErrorInterceptor` adds custom headers (`X-App-Client`) and handles error logging.
+#### Products (`/backend/api/products.php`)
+| Method | Endpoint | Description | HTTP Code |
+|-------|----------|------------|----------|
+| GET | `/products.php` | List all products | 200 |
+| GET | `/products.php?id=X` | Get product by ID | 200 / 404 |
+| POST | `/products.php` | Create product | 201 |
+| PUT | `/products.php?id=X` | Update product | 200 / 404 |
+| DELETE | `/products.php?id=X` | Delete product | 200 / 404 |
 
-### Evidence of Workshop Requirements
+#### Users (`/backend/api/users.php`)
+| Method | Endpoint | Description | HTTP Code |
+|-------|----------|------------|----------|
+| GET | `/users.php` | List all users | 200 |
+| GET | `/users.php?id=X` | Get user by ID | 200 / 404 |
+| POST | `/users.php` | Create user | 201 |
 
-| Requirement | Evidence |
-|-------------|----------|
-| Signals for state (`signal<Product[]>`, `signal<Product \| null>`) | `src/app/features/product-list/product-list.component.ts:17-20` `src/app/features/product-detail/product-detail.component.ts:20-23` |
-| Http service with typed responses (`http.get<Product[]>`) | `src/app/services/ecommerce-data.service.ts:20-27` |
-| FakeStore API + fallback mocks | `src/app/services/ecommerce-data.service.ts:11,22-25` |
-| HTTP Interceptor | `src/app/interceptors/http-error.interceptor.ts:5-24` |
-| Standalone components with Signals | All components in `src/app/features/` use standalone + signals |
+#### Orders (`/backend/api/orders.php`)
+| Method | Endpoint | Description | HTTP Code |
+|-------|----------|------------|----------|
+| GET | `/orders.php` | List all orders | 200 |
+| GET | `/orders.php?id=X` | Get order by ID | 200 / 404 |
+| POST | `/orders.php` | Create order | 201 |
 
-## ⚙️ CLI Reference
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+#### SQL Queries
+| Query | Endpoint | Description |
+|-------|----------|------------|
+| Sales by product | `/orders.php?query=sales` | Total revenue by product |
+| Orders with details | `/orders.php?query=userOrders` | Orders with username and product name |
+| Products summary | `/orders.php?query=products` | Products with sales count |
 
-(This section follows the standard Angular CLI template for developer reference.)
+## 📊 Taller 2 Requirements Checklist
+
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| MySQL database with 3+ tables | ✅ | `backend/database.sql` |
+| 3+ REST endpoints | ✅ | products.php, users.php, orders.php |
+| 3+ SQL queries | ✅ | ?query=sales, userOrders, products |
+| HTTP codes (201, 404, 500) | ✅ | Implemented in all endpoints |
+| Connected frontend | ✅ | Angular → MySQL via PHP API |
+| Git repository | ✅ | 2 commits (Edilberto + Nicoll) |
+
+## 🛠️ Tech Stack
+- **Frontend**: Angular 19 (Standalone + Signals)
+- **Backend**: PHP 8 + PDO
+- **Database**: MySQL (phpMyAdmin)
+- **Server**: XAMPP (Apache)
+
+## 👥 Team
+- Edilberto Moreno Valencia
+- Nicoll Dayann Aguirre Ussa

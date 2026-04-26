@@ -2,9 +2,12 @@
   <header class="dashboard__header">
     <div>
       <h1>Admin Dashboard</h1>
-      <p>Panel de control para productos, categorias y usuarios.</p>
+      <p>Panel de control para productos, categorias, usuarios y ordenes.</p>
     </div>
-    <a routerLink="/products" class="button-link">Ver productos</a>
+    <div class="dashboard__actions">
+      <a routerLink="/orders" class="button-link">Ver ordenes</a>
+      <a routerLink="/products" class="button-link">Ver productos</a>
+    </div>
   </header>
 
   <div *ngIf="loading()" class="state-card">Cargando metricas...</div>
@@ -69,7 +72,7 @@
         <h3>Usuarios administradores</h3>
         <ul>
           <li *ngFor="let user of users()">
-            {{ user.name.firstname }} {{ user.name.lastname }}
+            {{ user.name_first }} {{ user.name_last }}
           </li>
         </ul>
       </article>

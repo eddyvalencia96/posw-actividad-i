@@ -10,6 +10,11 @@
   gap: 1rem;
 }
 
+.dashboard__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .dashboard__header p {
   margin-top: 0.35rem;
   color: #475467;

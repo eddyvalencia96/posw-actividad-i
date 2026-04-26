@@ -64,20 +64,23 @@ export const MOCK_USERS: User[] = [
     email: 'alice.admin@example.com',
     username: 'alice-admin',
     phone: '555-1101',
-    name: { firstname: 'Alice', lastname: 'Garcia' }
+    name_first: 'Alice',
+    name_last: 'Garcia'
   },
   {
     id: 502,
     email: 'bruno.manager@example.com',
     username: 'bruno-manager',
     phone: '555-1102',
-    name: { firstname: 'Bruno', lastname: 'Lopez' }
+    name_first: 'Bruno',
+    name_last: 'Lopez'
   },
   {
     id: 503,
     email: 'carla.ops@example.com',
     username: 'carla-ops',
     phone: '555-1103',
-    name: { firstname: 'Carla', lastname: 'Torres' }
+    name_first: 'Carla',
+    name_last: 'Torres'
   }
 ];

@@ -1,0 +1,44 @@
+<section class="orders-list">
+  <header class="orders-list__header">
+    <div>
+      <h1>Órdenes</h1>
+      <p>Lista de todas las órdenes del sistema.</p>
+    </div>
+    <a routerLink="/" class="button-link">Volver al dashboard</a>
+  </header>
+
+  <div *ngIf="loading()" class="state-card">Cargando órdenes...</div>
+
+  <ng-container *ngIf="!loading()">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders()">
+          <td>#{{ order.id }}</td>
+          <td>{{ order.username }}</td>
+          <td>{{ order.product_name }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.total_price | currency }}</td>
+          <td>
+            <span class="status" [ngClass]="getStatusClass(order.status)">
+              {{ order.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="orders().length === 0" class="state-card">
+      No hay órdenes disponibles.
+    </div>
+  </ng-container>
+</section>
