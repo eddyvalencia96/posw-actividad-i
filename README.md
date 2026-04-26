@@ -93,7 +93,7 @@ The application uses MySQL with 3 tables:
 | 3+ SQL queries | ✅ | ?query=sales, userOrders, products |
 | HTTP codes (201, 404, 500) | ✅ | Implemented in all endpoints |
 | Connected frontend | ✅ | Angular → MySQL via PHP API |
-| Git repository | ✅ | 2 commits (Edilberto + Nicoll) |
+| Git repository | ✅ | https://github.com/eddyvalencia96/posw-actividad-i |
 
 ## 🛠️ Tech Stack
 - **Frontend**: Angular 19 (Standalone + Signals)
@@ -104,3 +104,26 @@ The application uses MySQL with 3 tables:
 ## 👥 Team
 - Edilberto Moreno Valencia
 - Nicoll Dayann Aguirre Ussa
+
+## 📸 Evidencias
+
+### Base de Datos
+| Archivo | Descripción |
+|--------|-------------|
+| `docs/screenshots/01-phpmaAdmin-tables.png` | Estructura de las 3 tablas |
+
+### API (Postman/curl)
+| Archivo | Descripción |
+|--------|-------------|
+| `docs/screenshots/02-api-get-products.png` | GET products (200) |
+| `docs/screenshots/03-api-get-product-by-id.png` | GET product by ID (200) |
+| `docs/screenshots/04-api-post-product.png` | POST product (201) |
+| `docs/screenshots/05-api-put-product.png` | PUT product (200) |
+| `docs/screenshots/06-api-delete-product.png` | DELETE product (200) |
+
+### Frontend
+| Archivo | Descripción |
+|--------|-------------|
+| `docs/screenshots/07-frontend-dashboard.png` | Dashboard |
+| `docs/screenshots/08-frontend-products.png` | Productos |
+| `docs/screenshots/09-frontend-orders.png` | Órdenes |
